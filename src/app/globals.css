@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+.glow-line {
+  filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.9));
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+  background: rgba(10, 15, 25, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
+}
+
+.custom-popup .leaflet-popup-tip {
+  background: rgba(10, 15, 25, 0.95);
+}
+
+.custom-popup .text-black {
+  color: white;
+}
+
+@keyframes pulseMarker {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px #00d2ff, inset 0 0 10px rgba(0, 210, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 35px #00d2ff, inset 0 0 18px rgba(0, 210, 255, 0.8);
+  }
+}
+
+.custom-vehicle-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+body {
+  background: #000000;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
