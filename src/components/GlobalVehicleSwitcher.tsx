@@ -123,23 +123,23 @@ export default function GlobalVehicleSwitcher({
       </AnimatePresence>
 
       {/* Selector Header Bar */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(0,210,255,0.2)]">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6 text-left">
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 micro-label shadow-[0_0_15px_rgba(0,210,255,0.2)]">
             <Zap className="w-4 h-4 text-cyan-400 animate-pulse" />
             <span>Global Expedition Fleet & Bike Mode Switcher</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
+          <h2 className="heading-h1 font-black text-slate-50">
             Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-emerald-400">Website Ride & 3D Cruising Effect</span>
           </h2>
-          <p className="text-gray-400 text-sm mt-1 max-w-2xl">
+          <p className="body-standard text-slate-400 max-w-2xl leading-relaxed">
             Switching your bike or vehicle updates the 3D model canvas, interactive map avatar, and triggers full-screen website cruising animation!
           </p>
         </div>
 
         <button
           onClick={() => handleSelectVehicle(selectedVehicle)}
-          className="px-4 py-2.5 rounded-2xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 text-xs font-bold transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,210,255,0.2)]"
+          className="btn-secondary-quiet px-4 py-2.5 touch-target flex items-center gap-2 border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/20"
         >
           <Flame className="w-4 h-4 text-cyan-400 animate-bounce" />
           <span>Trigger 3D Cruising Animation</span>
@@ -157,34 +157,34 @@ export default function GlobalVehicleSwitcher({
               onClick={() => handleSelectVehicle(v.id)}
               whileHover={{ y: -6, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`cursor-pointer relative rounded-3xl p-6 transition-all duration-300 border backdrop-blur-md flex flex-col justify-between space-y-4 ${
+              className={`cursor-pointer relative rounded-3xl p-6 transition-all duration-300 border flex flex-col justify-between space-y-4 text-left ${
                 isSelected
-                  ? 'bg-gradient-to-b from-cyan-950/80 via-slate-950 to-black border-cyan-400 shadow-[0_0_30px_rgba(0,210,255,0.3)] ring-2 ring-cyan-400/50'
-                  : 'bg-neutral-900/60 border-white/10 hover:border-cyan-500/40 hover:bg-neutral-900/90'
+                  ? 'card-tier-primary border-cyan-400 shadow-[0_0_30px_rgba(0,210,255,0.3)] ring-2 ring-cyan-400/50'
+                  : 'card-tier-secondary hover:border-cyan-500/40'
               }`}
             >
               {/* Active Glow Badge */}
               {isSelected && (
-                <div className="absolute -top-3 right-4 bg-cyan-400 text-black font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_#00d2ff] font-mono">
+                <div className="absolute -top-3 right-4 bg-cyan-400 text-black font-black micro-label px-3 py-1 rounded-full shadow-[0_0_10px_#00d2ff] font-mono">
                   ACTIVE RIDE
                 </div>
               )}
 
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-4xl p-3 bg-black/60 rounded-2xl border border-white/10 shadow-inner">
+                  <span className="text-4xl p-3 bg-slate-950/80 rounded-2xl border border-white/10 shadow-inner">
                     {v.icon}
                   </span>
-                  <span className="text-[10px] font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/30">
+                  <span className="micro-label text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/30">
                     {v.category}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-black text-white tracking-wide leading-tight">
+                  <h3 className="heading-h3 font-black text-slate-50 leading-tight">
                     {v.name}
                   </h3>
-                  <p className="text-xs text-gray-400 line-clamp-2 mt-1">
+                  <p className="body-small text-slate-400 line-clamp-2 mt-1 leading-relaxed">
                     {v.description}
                   </p>
                 </div>
@@ -193,24 +193,24 @@ export default function GlobalVehicleSwitcher({
               {/* Stats Bar */}
               <div className="pt-3 border-t border-white/10 space-y-2">
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-gray-400 flex items-center gap-1">
+                  <span className="text-slate-400 flex items-center gap-1">
                     <Gauge className="w-3.5 h-3.5 text-cyan-400" /> Max Speed:
                   </span>
-                  <span className="font-bold text-white">{v.stats.speed}</span>
+                  <span className="font-bold text-slate-50">{v.stats.speed}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-gray-400 flex items-center gap-1">
+                  <span className="text-slate-400 flex items-center gap-1">
                     <Compass className="w-3.5 h-3.5 text-emerald-400" /> Altitude Pass:
                   </span>
                   <span className="font-bold text-emerald-300">{v.stats.altitudeRating.split(' ')[0]}</span>
                 </div>
 
                 <button
-                  className={`w-full py-2.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all mt-2 flex items-center justify-center gap-2 ${
+                  className={`w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all mt-2 flex items-center justify-center gap-2 touch-target min-h-[44px] ${
                     isSelected
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-[0_0_15px_rgba(0,210,255,0.4)]'
-                      : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
+                      ? 'btn-primary-cta'
+                      : 'btn-secondary-quiet'
                   }`}
                 >
                   {isSelected ? '🏎️ Currently Selected' : '⚡ Switch to this Ride'}

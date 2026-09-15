@@ -303,30 +303,32 @@ export default function Interactive3DMountainWeather() {
       }
 
       // DYNAMIC ATMOSPHERIC COLOR & LIGHTING SHIFTS BASED ON WEATHER
-      if (activeMode === 'snow') {
-        scene.fog.color.setHex(0x0a1526);
-        scene.background = new THREE.Color(0x0a1526);
-        mountainMat.color.setHex(0x233554);
-        mainLight.color.setHex(0x80d8ff);
-        mainLight.intensity = 2.0;
-      } else if (activeMode === 'rain') {
-        scene.fog.color.setHex(0x070c14);
-        scene.background = new THREE.Color(0x070c14);
-        mountainMat.color.setHex(0x131c2b);
-        mainLight.color.setHex(0x35495e);
-        mainLight.intensity = 1.2;
-      } else if (activeMode === 'dust') {
-        scene.fog.color.setHex(0x26190a);
-        scene.background = new THREE.Color(0x26190a);
-        mountainMat.color.setHex(0x422a14);
-        mainLight.color.setHex(0xffaa44);
-        mainLight.intensity = 2.4;
-      } else if (activeMode === 'clear') {
-        scene.fog.color.setHex(0x0b1d3a);
-        scene.background = new THREE.Color(0x0b1d3a);
-        mountainMat.color.setHex(0x1c3144);
-        mainLight.color.setHex(0xffffff);
-        mainLight.intensity = 2.8;
+      if (scene.fog) {
+        if (activeMode === 'snow') {
+          scene.fog.color.setHex(0x0a1526);
+          scene.background = new THREE.Color(0x0a1526);
+          mountainMat.color.setHex(0x233554);
+          mainLight.color.setHex(0x80d8ff);
+          mainLight.intensity = 2.0;
+        } else if (activeMode === 'rain') {
+          scene.fog.color.setHex(0x070c14);
+          scene.background = new THREE.Color(0x070c14);
+          mountainMat.color.setHex(0x131c2b);
+          mainLight.color.setHex(0x35495e);
+          mainLight.intensity = 1.2;
+        } else if (activeMode === 'dust') {
+          scene.fog.color.setHex(0x26190a);
+          scene.background = new THREE.Color(0x26190a);
+          mountainMat.color.setHex(0x422a14);
+          mainLight.color.setHex(0xffaa44);
+          mainLight.intensity = 2.4;
+        } else if (activeMode === 'clear') {
+          scene.fog.color.setHex(0x0b1d3a);
+          scene.background = new THREE.Color(0x0b1d3a);
+          mountainMat.color.setHex(0x1c3144);
+          mainLight.color.setHex(0xffffff);
+          mainLight.intensity = 2.8;
+        }
       }
 
       renderer.render(scene, camera);

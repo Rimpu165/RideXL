@@ -175,28 +175,39 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
       
       {/* Search Header Banner */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(0,210,255,0.2)]">
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 micro-label shadow-[0_0_15px_rgba(0,210,255,0.2)]">
             <Compass className="w-4 h-4 text-cyan-400" />
             <span>Custom Himalayan Route & Traveler Fleet Calculator</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h2 className="heading-h1 font-black text-white">
             Search Route & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-emerald-400">Kitne Log Ja Rahe Hain?</span>
           </h2>
-          <p className="text-gray-400 text-sm md:text-base mt-2 max-w-3xl">
+          <p className="body-standard text-slate-400 max-w-3xl leading-relaxed">
             Select your starting location, destination, and exact traveler count to dynamically calculate 3D fleet requirements, fuel budget, and emergency oxygen support.
           </p>
+        </div>
+
+        {/* Dynamic Vehicle Scarcity Indicator */}
+        <div className="bg-rose-500/10 border border-rose-500/30 px-4 py-2.5 rounded-2xl flex items-center gap-3 shrink-0 shadow-[0_0_15px_rgba(244,63,94,0.2)] animate-pulse">
+          <Flame className="w-5 h-5 text-rose-400 shrink-0" />
+          <div className="text-left">
+            <span className="micro-label text-rose-400 block -mb-0.5">High Demand Expedition</span>
+            <span className="text-xs font-bold text-slate-100 font-mono">
+              🔥 Only 2 Thar SUVs & 3 Bikes Left for Batch!
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Interactive Search Box Container */}
-      <div className="bg-gradient-to-br from-slate-950 via-neutral-900 to-slate-950 border border-white/10 p-6 md:p-8 rounded-3xl shadow-2xl space-y-6">
+      <div className="card-tier-primary p-6 md:p-8 space-y-6">
         
         <form onSubmit={handleSearchRoute} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 items-end">
           
           {/* 1. Pickup / Origin Input */}
           <div className="lg:col-span-3 space-y-2">
-            <label className="text-xs text-cyan-400 font-bold uppercase tracking-wider flex items-center justify-between">
+            <label className="micro-label text-cyan-400 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                 Starting Location (Pickup)
@@ -204,7 +215,7 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
               <button
                 type="button"
                 onClick={handleDetectGPS}
-                className="text-[10px] text-cyan-300 hover:text-cyan-200 font-semibold underline flex items-center gap-1"
+                className="text-[11px] text-cyan-300 hover:text-cyan-200 font-semibold underline flex items-center gap-1 touch-target min-h-[32px]"
               >
                 📍 GPS
               </button>
@@ -215,7 +226,7 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
                 value={origin}
                 onChange={(e) => setOrigin(e.target.value)}
                 placeholder="e.g. Palampur, Delhi, Manali"
-                className="w-full h-[52px] bg-black/80 border border-white/15 focus:border-cyan-400 text-white rounded-2xl px-4 pl-11 text-sm font-semibold outline-none transition-all shadow-inner placeholder-gray-500"
+                className="w-full h-[52px] bg-slate-950/90 border border-white/20 focus:border-cyan-400 text-slate-50 rounded-2xl px-4 pl-11 text-sm font-semibold outline-none transition-all shadow-inner placeholder-slate-500"
               />
               <MapPin className="w-5 h-5 text-cyan-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
@@ -223,7 +234,7 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
 
           {/* 2. Destination Input */}
           <div className="lg:col-span-3 space-y-2">
-            <label className="text-xs text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+            <label className="micro-label text-emerald-400 flex items-center gap-1.5">
               <Navigation className="w-3.5 h-3.5 text-emerald-400" />
               Where Do You Want To Go?
             </label>
@@ -233,7 +244,7 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 placeholder="e.g. Leh Ladakh, Spiti Valley"
-                className="w-full h-[52px] bg-black/80 border border-white/15 focus:border-emerald-400 text-white rounded-2xl px-4 pl-11 text-sm font-semibold outline-none transition-all shadow-inner placeholder-gray-500"
+                className="w-full h-[52px] bg-slate-950/90 border border-white/20 focus:border-emerald-400 text-slate-50 rounded-2xl px-4 pl-11 text-sm font-semibold outline-none transition-all shadow-inner placeholder-slate-500"
               />
               <Navigation className="w-5 h-5 text-emerald-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
@@ -241,30 +252,30 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
 
           {/* 3. Number of People / Kitne Log Counter */}
           <div className="lg:col-span-3 space-y-2">
-            <label className="text-xs text-amber-400 font-bold uppercase tracking-wider flex items-center justify-between">
+            <label className="micro-label text-amber-400 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-amber-400" />
                 Kitne Log Ja Rahe Hain?
               </span>
-              <span className="text-[10px] text-amber-300 font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-500/40">
+              <span className="text-[11px] text-amber-300 font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-500/40">
                 {riderCount} {riderCount === 1 ? 'PERSON' : 'PEOPLE'}
               </span>
             </label>
             
-            <div className="h-[52px] flex items-center justify-between bg-black/90 border border-amber-500/30 rounded-2xl p-1.5 px-3 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+            <div className="h-[52px] flex items-center justify-between bg-slate-950/90 border border-amber-500/40 rounded-2xl p-1.5 px-3 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
               <button
                 type="button"
                 onClick={() => setRiderCount(Math.max(1, riderCount - 1))}
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-amber-500/30 hover:border-amber-400 text-amber-300 flex items-center justify-center font-black transition-all border border-white/10 active:scale-95"
+                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-amber-500/30 hover:border-amber-400 text-amber-300 flex items-center justify-center font-black transition-all border border-white/10 active:scale-95 touch-target"
               >
                 <Minus className="w-4 h-4" />
               </button>
 
               <div className="text-center px-3">
-                <span className="text-base font-black text-white font-mono block leading-tight">
+                <span className="text-base font-black text-slate-50 font-mono block leading-tight">
                   {riderCount}
                 </span>
-                <span className="text-[9px] text-amber-400 uppercase font-bold tracking-tight block -mt-0.5 whitespace-nowrap">
+                <span className="text-[10px] text-amber-400 font-bold uppercase tracking-tight block -mt-0.5 whitespace-nowrap">
                   {riderCount === 1 ? 'SOLO TRAVELER' : riderCount <= 3 ? 'SMALL SQUAD' : riderCount <= 7 ? 'CONVOY SQUAD' : 'BIG FLEET GROUP'}
                 </span>
               </div>
@@ -272,19 +283,19 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
               <button
                 type="button"
                 onClick={() => setRiderCount(riderCount + 1)}
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-amber-500/30 hover:border-amber-400 text-amber-300 flex items-center justify-center font-black transition-all border border-white/10 active:scale-95"
+                className="w-10 h-10 rounded-xl bg-white/10 hover:bg-amber-500/30 hover:border-amber-400 text-amber-300 flex items-center justify-center font-black transition-all border border-white/10 active:scale-95 touch-target"
               >
                 <Plus className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          {/* 4. Search CTA Button */}
+          {/* 4. Search CTA Button (Primary CTA Token) */}
           <div className="lg:col-span-3">
             <button
               type="submit"
               disabled={isCalculating}
-              className="w-full h-[52px] bg-gradient-to-r from-cyan-500 via-blue-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-white font-black text-sm uppercase tracking-wider rounded-2xl transition-all transform hover:scale-[1.02] active:scale-95 shadow-xl shadow-cyan-500/30 flex items-center justify-center gap-2 border border-white/20"
+              className="w-full btn-primary-cta flex items-center justify-center gap-2 touch-target"
             >
               {isCalculating ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -301,7 +312,7 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
 
         {/* Popular Himalayan Route Chips */}
         <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/10">
-          <span className="text-xs text-gray-400 font-mono flex items-center gap-1 mr-1">
+          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 mr-1">
             <Flame className="w-3.5 h-3.5 text-rose-400" />
             Popular Routes:
           </span>
@@ -311,10 +322,10 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
               onClick={() => {
                 setDestination(dest.name);
               }}
-              className={`px-3 py-1 rounded-xl border text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all touch-target min-h-[36px] ${
                 destination.toLowerCase().includes(dest.name.toLowerCase())
-                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-[0_0_10px_rgba(16,185,129,0.3)] font-bold'
-                  : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10'
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/60 shadow-[0_0_10px_rgba(16,185,129,0.3)] font-bold'
+                  : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
               }`}
             >
               📍 {dest.name}
@@ -326,7 +337,7 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-3 border-t border-white/10">
           
           {/* Row A: Quick Group Presets */}
-          <div className="flex flex-wrap items-center gap-2.5 bg-black/50 border border-white/10 p-3 rounded-2xl">
+          <div className="flex flex-wrap items-center gap-2.5 bg-slate-950/60 border border-white/10 p-3 rounded-2xl">
             <span className="text-xs font-bold text-amber-300 font-mono flex items-center gap-1.5 shrink-0">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               Group Size Presets:
@@ -342,10 +353,10 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
                 <button
                   key={preset.label}
                   onClick={() => setRiderCount(preset.count)}
-                  className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all touch-target min-h-[36px] ${
                     riderCount === preset.count
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-[0_0_12px_rgba(245,158,11,0.35)] scale-105'
-                      : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10'
+                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/60 shadow-[0_0_12px_rgba(245,158,11,0.35)] scale-105'
+                      : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
                   }`}
                 >
                   {preset.label}
@@ -355,37 +366,37 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
           </div>
 
           {/* Row B: Vehicle Combination Preference */}
-          <div className="flex flex-wrap items-center gap-2.5 bg-black/50 border border-white/10 p-3 rounded-2xl">
+          <div className="flex flex-wrap items-center gap-2.5 bg-slate-950/60 border border-white/10 p-3 rounded-2xl">
             <span className="text-xs font-bold text-cyan-300 font-mono shrink-0">
               🚘 Vehicle Mode:
             </span>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setTravelMode('mixed')}
-                className={`px-3 py-1.5 rounded-xl border text-xs transition-all ${
+                className={`px-3 py-1.5 rounded-xl border text-xs transition-all touch-target min-h-[36px] ${
                   travelMode === 'mixed'
-                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 font-bold shadow-[0_0_10px_rgba(0,210,255,0.3)]'
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:text-white'
+                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/60 font-bold shadow-[0_0_10px_rgba(0,210,255,0.3)]'
+                    : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
                 }`}
               >
                 🔄 Mixed (Bikes + SUV)
               </button>
               <button
                 onClick={() => setTravelMode('bikes')}
-                className={`px-3 py-1.5 rounded-xl border text-xs transition-all ${
+                className={`px-3 py-1.5 rounded-xl border text-xs transition-all touch-target min-h-[36px] ${
                   travelMode === 'bikes'
-                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 font-bold shadow-[0_0_10px_rgba(0,210,255,0.3)]'
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:text-white'
+                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/60 font-bold shadow-[0_0_10px_rgba(0,210,255,0.3)]'
+                    : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
                 }`}
               >
                 🏍️ All Bikes
               </button>
               <button
                 onClick={() => setTravelMode('suv')}
-                className={`px-3 py-1.5 rounded-xl border text-xs transition-all ${
+                className={`px-3 py-1.5 rounded-xl border text-xs transition-all touch-target min-h-[36px] ${
                   travelMode === 'suv'
-                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 font-bold shadow-[0_0_10px_rgba(0,210,255,0.3)]'
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:text-white'
+                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/60 font-bold shadow-[0_0_10px_rgba(0,210,255,0.3)]'
+                    : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
                 }`}
               >
                 🚘 All 4x4 SUVs
@@ -399,17 +410,17 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
 
       {/* Search Route Calculation Result Telemetry Display */}
       {planResult && (
-        <div className="bg-gradient-to-br from-black/90 via-slate-950/90 to-black/90 backdrop-blur-xl border border-cyan-500/30 p-6 md:p-8 rounded-3xl shadow-2xl space-y-6 animate-fadeIn">
+        <div className="card-tier-primary p-6 md:p-8 space-y-6 animate-fadeIn">
           
           {/* Header Row */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 shadow-[0_0_15px_#00d2ff]">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 shadow-[0_0_15px_#00d2ff] shrink-0">
                 <Compass className="w-6 h-6" />
               </div>
-              <div>
-                <span className="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">Calculated Expedition Telemetry</span>
-                <h3 className="text-2xl md:text-3xl font-black text-white flex items-center gap-2 flex-wrap">
+              <div className="text-left">
+                <span className="micro-label text-cyan-400">Calculated Expedition Telemetry</span>
+                <h3 className="heading-h2 font-black text-slate-50 flex items-center gap-2 flex-wrap">
                   <span>{planResult.originName}</span>
                   <ArrowRight className="w-5 h-5 text-cyan-400 shrink-0" />
                   <span className="text-emerald-400">{planResult.destinationName}</span>
@@ -420,8 +431,8 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
             <div className="flex items-center gap-3">
               <div className="bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-2xl flex items-center gap-2 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
                 <Users className="w-4 h-4 text-amber-400" />
-                <div>
-                  <span className="text-[9px] uppercase font-mono text-amber-400 block -mb-1">Active Group</span>
+                <div className="text-left">
+                  <span className="text-[10px] uppercase font-mono text-amber-400 block -mb-1">Active Group</span>
                   <span className="text-sm font-black text-amber-300 font-mono">
                     {planResult.riderCount} {planResult.riderCount === 1 ? 'Traveler' : 'Travelers'}
                   </span>
@@ -429,46 +440,46 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
               </div>
               <a
                 href="#route-map"
-                className="px-4 py-2.5 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold hover:bg-cyan-500/30 transition-all text-center"
+                className="px-4 py-2.5 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold hover:bg-cyan-500/30 transition-all text-center touch-target min-h-[44px]"
               >
                 📍 Track on Map ↓
               </a>
             </div>
           </div>
 
-          {/* Key Stats Telemetry Grid */}
+          {/* Key Stats Telemetry Grid (Consistently Left Aligned) */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             
-            <div className="bg-neutral-900/90 p-4 rounded-2xl border border-white/10 space-y-1">
-              <span className="text-[10px] uppercase text-gray-400 font-mono">Total Distance</span>
-              <p className="text-2xl font-black text-white flex items-center gap-1.5">
-                🛣️ {planResult.distanceKm} <span className="text-xs font-normal text-gray-400">km</span>
+            <div className="card-tier-secondary p-4 space-y-1 text-left">
+              <span className="micro-label text-slate-400">Total Distance</span>
+              <p className="text-2xl font-black text-slate-50 flex items-center gap-1.5">
+                🛣️ {planResult.distanceKm} <span className="text-xs font-normal text-slate-400">km</span>
               </p>
             </div>
 
-            <div className="bg-neutral-900/90 p-4 rounded-2xl border border-white/10 space-y-1">
-              <span className="text-[10px] uppercase text-gray-400 font-mono">Expedition Duration</span>
+            <div className="card-tier-secondary p-4 space-y-1 text-left">
+              <span className="micro-label text-slate-400">Expedition Duration</span>
               <p className="text-2xl font-black text-cyan-300 flex items-center gap-1.5">
                 ⏱️ {planResult.estimatedDays}
               </p>
             </div>
 
-            <div className="bg-neutral-900/90 p-4 rounded-2xl border border-white/10 space-y-1">
-              <span className="text-[10px] uppercase text-gray-400 font-mono">Highest Mountain Pass</span>
+            <div className="card-tier-secondary p-4 space-y-1 text-left">
+              <span className="micro-label text-slate-400">Highest Mountain Pass</span>
               <p className="text-2xl font-black text-emerald-400 flex items-center gap-1.5">
                 🏔️ {planResult.maxAltitudeMeters}m
               </p>
-              <p className="text-[10px] text-gray-400 truncate">{planResult.maxAltitudePass}</p>
+              <p className="text-[11px] text-slate-300 truncate">{planResult.maxAltitudePass}</p>
             </div>
 
-            <div className="bg-neutral-900/90 p-4 rounded-2xl border border-amber-500/30 space-y-1 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
-              <span className="text-[10px] uppercase text-amber-400 font-mono flex items-center gap-1">
-                <CircleDollarSign className="w-3 h-3 text-amber-400" /> Per Person Estimated Cost
+            <div className="card-tier-secondary p-4 space-y-1 text-left border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
+              <span className="micro-label text-amber-400 flex items-center gap-1">
+                <CircleDollarSign className="w-3.5 h-3.5 text-amber-400" /> Per Person Estimated Cost
               </span>
               <p className="text-lg font-black text-amber-300">
                 {planResult.estimatedBudgetPerPerson}
               </p>
-              <span className="text-[9px] text-gray-400 block font-mono">
+              <span className="text-[10px] text-slate-400 block font-mono">
                 Total Group: ₹{planResult.totalGroupCost.toLocaleString('en-IN')}
               </span>
             </div>
@@ -479,18 +490,18 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             
             {/* Card 1: Vehicles Allocated */}
-            <div className="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2">
+            <div className="card-tier-secondary p-4 space-y-2 text-left">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-bold text-cyan-400 tracking-wider flex items-center gap-1.5">
+                <span className="micro-label text-cyan-400 flex items-center gap-1.5">
                   <Truck className="w-3.5 h-3.5 text-cyan-400" /> Allocated Group Fleet
                 </span>
-                <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2.5 py-1 rounded-full font-mono font-bold">
+                <span className="text-[11px] bg-cyan-500/20 text-cyan-300 px-2.5 py-1 rounded-full font-mono font-bold">
                   {planResult.riderCount} {planResult.riderCount === 1 ? 'Traveler' : 'Travelers'}
                 </span>
               </div>
-              <p className="text-sm font-bold text-white leading-snug">{planResult.fleetBreakdown}</p>
+              <p className="text-sm font-bold text-slate-50 leading-snug">{planResult.fleetBreakdown}</p>
               
-              <div className="flex items-center gap-3 pt-1 text-xs text-gray-300 font-mono">
+              <div className="flex items-center gap-3 pt-1 text-xs text-slate-300 font-mono">
                 {planResult.bikeCount > 0 && (
                   <span className="flex items-center gap-1">
                     <Bike className="w-3.5 h-3.5 text-cyan-400" /> {planResult.bikeCount} Bikes
@@ -510,16 +521,16 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
             </div>
 
             {/* Card 2: Emergency Oxygen Tanks */}
-            <div className="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2">
+            <div className="card-tier-secondary p-4 space-y-2 text-left">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-bold text-emerald-400 tracking-wider flex items-center gap-1.5">
+                <span className="micro-label text-emerald-400 flex items-center gap-1.5">
                   <HeartPulse className="w-3.5 h-3.5 text-emerald-400" /> Medical & Altitude Safety
                 </span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full font-mono font-bold">
+                <span className="text-[11px] bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full font-mono font-bold">
                   {planResult.oxygenCylinders} Cylinders
                 </span>
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {planResult.oxygenAdvisory 
                   ? `High Altitude Advisory active for ${planResult.maxAltitudePass}. Includes ${planResult.oxygenCylinders}x O2 canisters & pulse oximeters.` 
                   : 'Standard medical kit and basic oxygen backup included.'}
@@ -527,16 +538,16 @@ export default function CustomRoutePlanner({ riderCount: propRiderCount, onRider
             </div>
 
             {/* Card 3: Logistics & Crew */}
-            <div className="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2">
+            <div className="card-tier-secondary p-4 space-y-2 text-left">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-bold text-amber-400 tracking-wider flex items-center gap-1.5">
+                <span className="micro-label text-amber-400 flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-amber-400" /> Crew & Logistics Support
                 </span>
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full font-mono font-bold">
+                <span className="text-[11px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full font-mono font-bold">
                   Certified Crew
                 </span>
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {planResult.supportTruckRequired 
                   ? 'Includes Lead Road Captain, Mechanic Crew, Spare Parts Truck, and Satellite SOS Transponder.' 
                   : 'Includes Lead Expedition Guide & Mechanical Emergency Support.'}

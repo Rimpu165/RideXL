@@ -86,44 +86,65 @@ export default function ExpeditionGearSection() {
   const oxygenPct = Math.round(100 - (selectedAltitude / 5328) * 45);
   const pressure = Math.round(1013 - (selectedAltitude / 5328) * 500);
 
+  // Dynamic Theme Color Morphing based on Elevation:
+  const themeColor = selectedAltitude < 2500 ? '#10b981' : selectedAltitude < 4200 ? '#f59e0b' : '#00d2ff';
+  const themeTier = selectedAltitude < 2500 ? 'Warm Valley Tones' : selectedAltitude < 4200 ? 'Challenging Mountain Air' : 'Freezing Sub-Zero Arctic Peak';
+
   const filteredGear = activeTab === 'all' 
     ? EXPEDITION_GEAR 
     : EXPEDITION_GEAR.filter(g => g.essentialLevel === activeTab);
 
   return (
-    <section id="expedition-hub" className="w-full space-y-16 py-12 scroll-mt-24">
+    <section id="expedition-hub" className="w-full space-y-16 py-12 scroll-mt-24 transition-colors duration-700">
       
       {/* 1. Header Banner */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(0,210,255,0.2)]">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 micro-label shadow-[0_0_20px_rgba(0,210,255,0.2)]">
           <span>🏔️ Himalayan Preparation Hub</span>
         </div>
 
-        <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+        <h2 className="heading-display font-black text-slate-50">
           High-Altitude <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-emerald-400">Expedition Readiness</span>
         </h2>
 
-        <p className="text-gray-400 text-base md:text-lg">
+        <p className="body-lead text-slate-400">
           Simulate Himalayan weather extremes and prepare your survival gear before embarking on the Palampur to Leh ride.
         </p>
       </div>
 
       {/* 2. Interactive High-Altitude Survival Simulator */}
-      <div className="bg-gradient-to-br from-slate-950 via-neutral-900 to-slate-950 border border-white/10 p-6 md:p-10 rounded-3xl shadow-2xl space-y-8 relative overflow-hidden">
+      <div className="card-tier-primary p-6 md:p-10 space-y-8 relative overflow-hidden">
         
-        {/* Glowing Background Radial Accent */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Dynamic Theme Glow Background */}
+        <div
+          className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl transition-all duration-700 pointer-events-none opacity-30"
+          style={{ backgroundColor: themeColor }}
+        />
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-6 text-left">
           <div>
-            <span className="text-xs uppercase font-bold text-cyan-400 tracking-wider">Interactive Simulator</span>
-            <h3 className="text-2xl font-black text-white">Altitude Environmental Conditions</h3>
+            <span className="micro-label text-cyan-400 flex items-center gap-1.5">
+              <span>Interactive Simulator</span>
+              <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded-full font-mono text-slate-300">
+                Theme: {themeTier}
+              </span>
+            </span>
+            <h3 className="heading-h2 font-black text-slate-50">Altitude Environmental Conditions</h3>
           </div>
 
-          <div className="flex items-center gap-3 bg-black/60 p-3 rounded-2xl border border-white/10">
-            <span className="text-xs text-gray-400 font-mono">Current Peak:</span>
-            <span className="text-lg font-black text-cyan-300 font-mono">{selectedAltitude.toLocaleString()} meters</span>
-            <span className="text-xs bg-cyan-500/20 text-cyan-300 px-2.5 py-1 rounded-lg border border-cyan-500/40 font-bold">
+          <div className="flex items-center gap-3 bg-slate-950/80 p-3 rounded-2xl border border-white/10">
+            <span className="micro-label text-slate-400">Current Peak:</span>
+            <span className="text-lg font-black font-mono" style={{ color: themeColor }}>
+              {selectedAltitude.toLocaleString()} meters
+            </span>
+            <span
+              className="text-xs px-2.5 py-1 rounded-lg border font-bold font-mono transition-all duration-500"
+              style={{
+                backgroundColor: `${themeColor}20`,
+                borderColor: `${themeColor}60`,
+                color: themeColor
+              }}
+            >
               {selectedAltitude < 2500 ? 'Valley Pass' : selectedAltitude < 4200 ? 'High Pass' : 'Extreme Peak'}
             </span>
           </div>
@@ -131,7 +152,7 @@ export default function ExpeditionGearSection() {
 
         {/* Altitude Range Slider */}
         <div className="space-y-4">
-          <div className="flex justify-between text-xs text-gray-400 font-mono font-bold">
+          <div className="flex justify-between text-xs text-slate-400 font-mono font-bold">
             <span>📍 Palampur (1,470m)</span>
             <span>📍 Manali (2,050m)</span>
             <span>📍 Rohtang Pass (3,978m)</span>
@@ -146,51 +167,51 @@ export default function ExpeditionGearSection() {
             step="50"
             value={selectedAltitude}
             onChange={(e) => setSelectedAltitude(Number(e.target.value))}
-            className="w-full h-3 bg-neutral-950 rounded-lg appearance-none cursor-pointer accent-cyan-400 border border-white/10 shadow-[0_0_15px_#00d2ff]"
+            className="w-full h-3 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-cyan-400 border border-white/10 shadow-[0_0_15px_#00d2ff]"
           />
         </div>
 
-        {/* Live Environmental HUD Gauge Cards */}
+        {/* Live Environmental HUD Gauge Cards (Consistently Left Aligned) */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
           
           {/* Temperature Gauge */}
-          <div className="bg-black/60 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">
-            <div className="flex justify-between items-center text-xs text-gray-400">
+          <div className="card-tier-secondary p-5 space-y-2 text-left">
+            <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
               <span>Ambient Temp</span>
               <span>🌡️</span>
             </div>
             <p className={`text-3xl font-black ${temp < 0 ? 'text-cyan-300' : 'text-emerald-400'}`}>
               {temp}°C
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="body-small text-slate-300">
               {temp < 0 ? 'Sub-zero freezing frost warning' : 'Moderate valley climate'}
             </p>
           </div>
 
           {/* Oxygen Gauge */}
-          <div className="bg-black/60 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">
-            <div className="flex justify-between items-center text-xs text-gray-400">
+          <div className="card-tier-secondary p-5 space-y-2 text-left">
+            <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
               <span>Oxygen Saturation</span>
               <span>🫁</span>
             </div>
             <p className={`text-3xl font-black ${oxygenPct < 70 ? 'text-amber-400' : 'text-blue-400'}`}>
               {oxygenPct}%
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="body-small text-slate-300">
               {oxygenPct < 70 ? 'High risk of AMS altitude sickness' : 'Normal breathing levels'}
             </p>
           </div>
 
           {/* Barometric Pressure Gauge */}
-          <div className="bg-black/60 backdrop-blur-md p-5 rounded-2xl border border-white/10 space-y-2">
-            <div className="flex justify-between items-center text-xs text-gray-400">
+          <div className="card-tier-secondary p-5 space-y-2 text-left">
+            <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
               <span>Barometric Pressure</span>
               <span>⏲️</span>
             </div>
-            <p className="text-3xl font-black text-purple-400">
+            <p className="text-3xl font-black text-purple-300">
               {pressure} hPa
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="body-small text-slate-300">
               Low air density; engine power drops by ~20%
             </p>
           </div>
@@ -201,34 +222,34 @@ export default function ExpeditionGearSection() {
 
       {/* 3. Interactive Expedition Gear Checklist */}
       <div className="space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6 text-left">
           <div>
-            <h3 className="text-3xl font-black text-white">Survival Kit & Gear Checklist</h3>
-            <p className="text-sm text-gray-400">Interactive equipment inspect cards</p>
+            <h3 className="heading-h1 font-black text-slate-50">Survival Kit & Gear Checklist</h3>
+            <p className="body-standard text-slate-400">Interactive equipment inspect cards</p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="flex items-center gap-2 bg-neutral-900 p-1.5 rounded-2xl border border-white/10">
+          {/* Filter Tabs (Touch Targets Min 44px) */}
+          <div className="flex items-center gap-2 bg-slate-950 p-1.5 rounded-2xl border border-white/10">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'all' ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/30' : 'text-gray-400 hover:text-white'
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all touch-target min-h-[44px] ${
+                activeTab === 'all' ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/30' : 'text-slate-400 hover:text-white'
               }`}
             >
               All Gear
             </button>
             <button
               onClick={() => setActiveTab('Mandatory')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'Mandatory' ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'text-gray-400 hover:text-white'
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all touch-target min-h-[44px] ${
+                activeTab === 'Mandatory' ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/30' : 'text-slate-400 hover:text-white'
               }`}
             >
               Mandatory
             </button>
             <button
               onClick={() => setActiveTab('Recommended')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'Recommended' ? 'bg-emerald-500 text-black shadow-lg shadow-emerald-500/30' : 'text-gray-400 hover:text-white'
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all touch-target min-h-[44px] ${
+                activeTab === 'Recommended' ? 'bg-emerald-500 text-black shadow-lg shadow-emerald-500/30' : 'text-slate-400 hover:text-white'
               }`}
             >
               Recommended
@@ -246,17 +267,17 @@ export default function ExpeditionGearSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative bg-neutral-900/60 border border-white/10 backdrop-blur-md p-6 rounded-3xl shadow-xl transition-all hover:border-cyan-400/50 flex flex-col justify-between"
+              className="card-tier-secondary p-6 rounded-3xl transition-all hover:border-cyan-400/50 flex flex-col justify-between text-left space-y-4"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl shadow-lg">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-950/80 border border-white/10 flex items-center justify-center text-3xl shadow-lg">
                     {item.icon}
                   </div>
 
-                  <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${
+                  <span className={`micro-label px-3 py-1 rounded-full border ${
                     item.essentialLevel === 'Mandatory'
-                      ? 'bg-red-500/20 text-red-300 border-red-500/40'
+                      ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
                       : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
                   }`}>
                     {item.essentialLevel}

@@ -7,6 +7,8 @@ import Interactive3DExpedition from './Interactive3DExpedition';
 import ExpeditionGearSection from './ExpeditionGearSection';
 import CustomRoutePlanner from './CustomRoutePlanner';
 import GlobalVehicleSwitcher from './GlobalVehicleSwitcher';
+import LiveWeatherWarningBanner from './LiveWeatherWarningBanner';
+import AITripPlanner from './AITripPlanner';
 import { VehicleType } from './Vehicle3DViewer';
 
 interface RoutePoint {
@@ -40,7 +42,19 @@ export default function JourneySection({ routes, riders }: JourneySectionProps) 
     <div className="relative z-30 bg-gradient-to-b from-transparent via-slate-950/70 to-black/95 w-full min-h-screen py-20 px-4 sm:px-8 md:px-12 lg:px-20 space-y-24">
       <div className="max-w-7xl mx-auto space-y-24">
         
-        {/* 1. Interactive Custom Route Search Engine (Your Location -> Destination & Rider Count) */}
+        {/* 0. Live Weather Telemetry & Mountain Pass Hazard Warnings */}
+        <LiveWeatherWarningBanner />
+
+        {/* 1. Smart AI Trip Planner Assistant */}
+        <AITripPlanner
+          onApplyPlan={(plan) => {
+            setRiderCount(plan.travelers);
+            const routeSearchElem = document.getElementById('custom-route-search');
+            if (routeSearchElem) routeSearchElem.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
+
+        {/* 2. Interactive Custom Route Search Engine (Your Location -> Destination & Rider Count) */}
         <CustomRoutePlanner
           riderCount={riderCount}
           onRiderCountChange={(count) => setRiderCount(count)}

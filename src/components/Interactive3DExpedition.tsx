@@ -79,29 +79,29 @@ export default function Interactive3DExpedition({ routes, onSelectedVehicleChang
     <div className="w-full space-y-8 my-16">
       
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 micro-label mb-3 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
             ✨ Interactive 3D Fleet & Route Engine
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h2 className="heading-h1 text-slate-50 tracking-tight">
             Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">3D Ride</span>
           </h2>
-          <p className="text-gray-400 text-base mt-2 max-w-2xl">
+          <p className="body-lead text-slate-400 mt-2 max-w-2xl">
             Select your expedition vehicle, customize paint livery, inspect 3D engineering specs, and simulate the high-altitude journey from Palampur to Leh.
           </p>
         </div>
 
-        {/* Quick Vehicle Type Buttons */}
-        <div className="flex items-center gap-2 bg-neutral-900/90 p-2 rounded-2xl border border-white/10 overflow-x-auto">
+        {/* Quick Vehicle Type Buttons (Min 44px tap target) */}
+        <div className="flex items-center gap-2 bg-slate-950/90 p-2 rounded-2xl border border-slate-800 overflow-x-auto shrink-0">
           {VEHICLES_DATA.map((v) => (
             <button
               key={v.id}
               onClick={() => handleVehicleSelect(v.id)}
-              className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2.5 whitespace-nowrap ${
+              className={`px-4 py-2.5 rounded-xl font-bold body-small transition-all flex items-center gap-2.5 whitespace-nowrap touch-target ${
                 selectedVehicle === v.id
-                  ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/30 scale-105'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-slate-50 shadow-lg shadow-blue-500/30 scale-105'
+                  : 'text-slate-400 hover:text-slate-50 hover:bg-slate-800/80'
               }`}
             >
               <span className="text-lg">{v.icon}</span>
@@ -121,22 +121,22 @@ export default function Interactive3DExpedition({ routes, onSelectedVehicleChang
       </div>
 
       {/* 3D Expedition Travel Simulation Bar */}
-      <div className="bg-gradient-to-r from-neutral-900 via-slate-900 to-neutral-900 border border-white/10 p-6 md:p-8 rounded-3xl shadow-2xl space-y-6">
+      <div className="card-tier-primary p-6 md:p-8 space-y-6">
         
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
-          {/* Current Waypoint HUD */}
-          <div className="flex items-center gap-4 w-full md:w-auto">
-            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-2xl text-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+          {/* Current Waypoint HUD (Left Aligned) */}
+          <div className="flex items-center gap-4 w-full md:w-auto text-left">
+            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-2xl text-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.3)] shrink-0">
               {activeVehicle.icon}
             </div>
-            <div>
+            <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs uppercase tracking-wider font-bold text-emerald-400">Day {currentWaypoint?.day || 1} Waypoint</span>
-                <span className="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded-full font-mono">{currentWaypoint?.altitude}</span>
+                <span className="micro-label text-emerald-400">Day {currentWaypoint?.day || 1} Waypoint</span>
+                <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-mono border border-slate-700">{currentWaypoint?.altitude}</span>
               </div>
-              <h4 className="text-xl font-black text-white">{currentWaypoint?.locationName}</h4>
-              <p className="text-xs text-gray-400 line-clamp-1">{currentWaypoint?.description}</p>
+              <h3 className="heading-h3 text-slate-50">{currentWaypoint?.locationName}</h3>
+              <p className="body-small text-slate-400 line-clamp-1">{currentWaypoint?.description}</p>
             </div>
           </div>
 
@@ -147,19 +147,19 @@ export default function Interactive3DExpedition({ routes, onSelectedVehicleChang
                 if (progress >= 100) setProgress(0);
                 setIsSimulating(!isSimulating);
               }}
-              className={`px-6 py-3.5 rounded-2xl font-black text-sm transition-all flex items-center gap-3 shadow-xl ${
+              className={`px-6 py-3.5 rounded-2xl font-bold body-standard transition-all flex items-center gap-3 shadow-xl touch-target ${
                 isSimulating
-                  ? 'bg-amber-500 hover:bg-amber-400 text-black shadow-amber-500/20'
-                  : 'bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-400 hover:to-emerald-400 text-white shadow-blue-500/30'
+                  ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'
+                  : 'btn-primary-cta'
               }`}
             >
               <span>{isSimulating ? '⏸️ Pause 3D Travel' : progress >= 100 ? '🔄 Restart Expedition' : '🚀 Simulate 3D Route Journey'}</span>
             </button>
 
-            {/* Speed Multiplier */}
+            {/* Speed Multiplier (Min 44px tap target) */}
             <button
               onClick={() => setSimSpeed(s => s === 1 ? 2 : s === 2 ? 5 : 1)}
-              className="px-3.5 py-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-mono text-cyan-300 hover:bg-white/10 transition-all"
+              className="px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 body-small font-mono text-cyan-300 hover:bg-slate-700 transition-all touch-target"
             >
               Speed: {simSpeed}x
             </button>
@@ -167,14 +167,14 @@ export default function Interactive3DExpedition({ routes, onSelectedVehicleChang
         </div>
 
         {/* Expedition Progress Slider & Elevation Graph Bar */}
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs text-gray-400 font-mono">
+        <div className="space-y-3 pt-2">
+          <div className="flex justify-between body-small text-slate-400 font-mono">
             <span>📍 Palampur (Start)</span>
-            <span className="text-cyan-400 font-bold">{Math.round(progress)}% Journey Completed</span>
+            <span className="text-cyan-300 font-bold">{Math.round(progress)}% Journey Completed</span>
             <span>🚩 Leh Ladakh (Finish)</span>
           </div>
 
-          <div className="relative w-full h-4 bg-neutral-950 rounded-full overflow-hidden border border-white/10 p-0.5">
+          <div className="relative w-full h-4 bg-slate-950 rounded-full overflow-hidden border border-slate-800 p-0.5">
             <div
               className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 rounded-full transition-all duration-300 shadow-[0_0_15px_#00d2ff]"
               style={{ width: `${progress}%` }}
@@ -192,18 +192,19 @@ export default function Interactive3DExpedition({ routes, onSelectedVehicleChang
                   onClick={() => {
                     setProgress((idx / (waypoints.length - 1)) * 100);
                   }}
-                  className="flex flex-col items-center gap-1 group focus:outline-none"
+                  className="flex flex-col items-center gap-1.5 group focus:outline-none p-1 touch-target justify-center"
+                  aria-label={`Jump to ${wp.locationName}`}
                 >
                   <div
-                    className={`w-3 h-3 rounded-full transition-all border ${
+                    className={`w-3.5 h-3.5 rounded-full transition-all border ${
                       isCurrent
-                        ? 'bg-cyan-400 border-white scale-150 shadow-[0_0_12px_#00d2ff]'
+                        ? 'bg-cyan-400 border-slate-50 scale-125 shadow-[0_0_12px_#00d2ff]'
                         : isPassed
                         ? 'bg-blue-500 border-blue-400'
-                        : 'bg-neutral-800 border-neutral-700 group-hover:bg-neutral-600'
+                        : 'bg-slate-800 border-slate-700 group-hover:bg-slate-700'
                     }`}
                   />
-                  <span className={`text-[10px] hidden sm:block truncate max-w-[60px] ${isCurrent ? 'text-cyan-300 font-bold' : 'text-gray-500'}`}>
+                  <span className={`micro-label hidden sm:block truncate max-w-[70px] ${isCurrent ? 'text-cyan-300 font-bold' : 'text-slate-400'}`}>
                     {wp.locationName.split(' ')[0]}
                   </span>
                 </button>

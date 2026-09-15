@@ -42,40 +42,42 @@ export default function RiderCards({ riderCount, onRiderCountChange }: RiderCard
   return (
     <div className="w-full space-y-8">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.3)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.3)] shrink-0">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-emerald-400 tracking-wider">Dynamic Group Fleet</span>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-wide flex items-center gap-3">
+            <span className="micro-label text-emerald-400">Dynamic Group Fleet</span>
+            <h2 className="heading-h1 text-slate-50 tracking-wide flex flex-wrap items-center gap-3">
               <span>The Squad</span>
-              <span className="text-sm font-mono font-bold bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
+              <span className="text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30">
                 {count} {count === 1 ? 'Rider' : 'Riders'} Allocated
               </span>
             </h2>
           </div>
         </div>
 
-        {/* Quick Rider Counter Controls */}
+        {/* Quick Rider Counter Controls (Min 44px tap targets) */}
         {onRiderCountChange && (
-          <div className="flex items-center gap-3 bg-black/60 border border-white/15 p-2 rounded-2xl">
-            <span className="text-xs text-gray-400 font-mono pl-2">Riders Count:</span>
+          <div className="flex items-center gap-3 bg-slate-950/80 border border-slate-800 p-2 rounded-2xl shrink-0">
+            <span className="body-small text-slate-400 font-mono pl-2">Riders Count:</span>
             <button
               onClick={() => onRiderCountChange(Math.max(1, count - 1))}
-              className="w-8 h-8 rounded-xl bg-white/10 hover:bg-emerald-500/30 hover:border-emerald-400 text-emerald-300 flex items-center justify-center font-bold transition-all border border-white/10 active:scale-95"
+              className="w-11 h-11 rounded-xl bg-slate-800/80 hover:bg-emerald-500/30 hover:border-emerald-400 text-emerald-300 flex items-center justify-center font-bold transition-all border border-slate-700 active:scale-95 touch-target"
+              aria-label="Decrease riders count"
             >
-              <Minus className="w-4 h-4" />
+              <Minus className="w-5 h-5" />
             </button>
-            <span className="text-sm font-black text-white font-mono px-2">
+            <span className="heading-h3 font-black text-slate-50 font-mono px-3">
               {count}
             </span>
             <button
               onClick={() => onRiderCountChange(count + 1)}
-              className="w-8 h-8 rounded-xl bg-white/10 hover:bg-emerald-500/30 hover:border-emerald-400 text-emerald-300 flex items-center justify-center font-bold transition-all border border-white/10 active:scale-95"
+              className="w-11 h-11 rounded-xl bg-slate-800/80 hover:bg-emerald-500/30 hover:border-emerald-400 text-emerald-300 flex items-center justify-center font-bold transition-all border border-slate-700 active:scale-95 touch-target"
+              aria-label="Increase riders count"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-5 h-5" />
             </button>
           </div>
         )}
@@ -96,54 +98,55 @@ export default function RiderCards({ riderCount, onRiderCountChange }: RiderCard
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="group relative rounded-3xl overflow-hidden bg-neutral-900/70 border border-white/10 backdrop-blur-md p-6 shadow-xl transition-all"
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="group relative rounded-3xl overflow-hidden card-tier-secondary p-6 shadow-xl transition-all"
             >
               {/* Top Card Glow Accent */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              <div className="relative z-10 flex flex-col items-center text-center space-y-4">
+              <div className="relative z-10 flex flex-col items-start text-left space-y-4">
                 
-                {/* Avatar Badge */}
-                <div className="relative">
-                  <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-emerald-400/60 shadow-[0_0_20px_rgba(52,211,153,0.3)]">
-                    <img 
-                      src={avatarUrl} 
-                      alt={`Rider ${riderNumber}`} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                    />
+                {/* Header Row: Avatar & Rider Name/Role */}
+                <div className="flex items-center gap-4 w-full">
+                  <div className="relative shrink-0">
+                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-emerald-400/60 shadow-[0_0_15px_rgba(52,211,153,0.3)]">
+                      <img 
+                        src={avatarUrl} 
+                        alt={`Rider ${riderNumber}`} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                      />
+                    </div>
+                    <span className="absolute -bottom-1 -right-1 bg-emerald-400 text-slate-950 text-[10px] font-black font-mono px-2 py-0.5 rounded-full border border-slate-900 shadow">
+                      #{riderNumber}
+                    </span>
                   </div>
-                  <span className="absolute -bottom-1 -right-1 bg-emerald-500 text-black text-[10px] font-black font-mono px-2 py-0.5 rounded-full border border-black shadow">
-                    #{riderNumber}
-                  </span>
+
+                  <div className="space-y-1">
+                    <h3 className="heading-h3 text-slate-50">
+                      Rider {riderNumber}
+                    </h3>
+                    <p className="body-small text-emerald-400 font-medium tracking-wide">
+                      {assignedRole}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Rider Name & Role */}
-                <div>
-                  <h3 className="text-2xl font-black text-white tracking-wide">
-                    Rider {riderNumber}
-                  </h3>
-                  <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider mt-0.5">
-                    {assignedRole}
-                  </p>
-                </div>
-
-                <div className="w-full h-px bg-white/10" />
+                <div className="w-full h-px bg-slate-800" />
 
                 {/* Assigned Vehicle Display */}
-                <div className="bg-black/60 rounded-2xl py-3 px-4 border border-white/10 w-full space-y-1">
-                  <span className="text-[10px] text-gray-400 uppercase tracking-widest font-mono flex items-center justify-center gap-1">
-                    {isSuvOrTruck ? <Car className="w-3.5 h-3.5 text-emerald-400" /> : <Bike className="w-3.5 h-3.5 text-cyan-400" />}
+                <div className="bg-slate-950/80 rounded-2xl p-4 border border-slate-800 w-full space-y-1 text-left">
+                  <span className="micro-label text-slate-400 flex items-center gap-1.5">
+                    {isSuvOrTruck ? <Car className="w-4 h-4 text-emerald-400" /> : <Bike className="w-4 h-4 text-cyan-400" />}
                     Assigned Vehicle
                   </span>
-                  <p className="text-sm font-black text-cyan-300">
+                  <p className="body-standard font-bold text-cyan-300">
                     {assignedVehicle}
                   </p>
                 </div>
 
                 {/* Status Indicator */}
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-xl w-full justify-center">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-3 py-2 rounded-xl w-full justify-start">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>Geared & High-Altitude O2 Ready</span>
                 </div>
 
